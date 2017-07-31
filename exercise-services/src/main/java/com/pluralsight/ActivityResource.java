@@ -23,14 +23,24 @@ public class ActivityResource {
 
 	@POST
 	@Path("activity")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Activity createActivityBinding(Activity activity) {
+		System.out.println("POST binding: " + activity);
+		activity.setDuration(activity.getDuration() + 10);
+		return activity;
+	}
+
+	@POST
+	@Path("activity")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Activity createActivityParams(MultivaluedMap<String, String> formParams) {
 		String description = formParams.getFirst("description");
 		Integer duration = Integer.parseInt(formParams.getFirst("duration"));
 
-		System.out.println("description:" + description);
-		System.out.println("duration:" + duration);
+		System.out.println("POST x-form: description:" + description);
+		System.out.println("POST x-form: duration:" + duration);
 		System.out.println("");
 
 		Activity activity = new Activity(description, duration);
