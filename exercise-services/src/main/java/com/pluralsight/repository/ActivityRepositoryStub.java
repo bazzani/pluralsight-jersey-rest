@@ -29,7 +29,12 @@ public class ActivityRepositoryStub implements ActivityRepository {
 		User user = new User();
 		user.setName("Harry Brown");
 		activity.setUser(user);
-		
+
 		return activity;
+	}
+
+	@Override
+	public void create(Activity activity) {
+		System.out.println("Creating Activity: " + activity);
 	}
 }

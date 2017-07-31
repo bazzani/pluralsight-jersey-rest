@@ -2,11 +2,14 @@ package com.pluralsight;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
 import com.pluralsight.model.Activity;
 import com.pluralsight.model.User;
@@ -17,6 +20,24 @@ import com.pluralsight.repository.ActivityRepositoryStub;
 public class ActivityResource {
 
 	private ActivityRepository activityRepository = new ActivityRepositoryStub();
+
+	@POST
+	@Path("activity")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Activity createActivityParams(MultivaluedMap<String, String> formParams) {
+		String description = formParams.getFirst("description");
+		Integer duration = Integer.parseInt(formParams.getFirst("duration"));
+
+		System.out.println("description:" + description);
+		System.out.println("duration:" + duration);
+		System.out.println("");
+
+		Activity activity = new Activity(description, duration);
+
+		activityRepository.create(activity);
+		return activity;
+	}
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

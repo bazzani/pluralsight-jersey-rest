@@ -1,6 +1,7 @@
 package com.pluralsight.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -18,6 +19,7 @@ public class Activity {
 		this.duration = duration;
 	}
 
+	@XmlElement(name="desc")
 	public String getDescription() {
 		return description;
 	}
@@ -54,4 +56,12 @@ public class Activity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "Activity [description=" + description + ", duration=" + duration + ", activityId=" + activityId
+				+ ", user=" + user + "]";
+	}
+	
+	
 }
