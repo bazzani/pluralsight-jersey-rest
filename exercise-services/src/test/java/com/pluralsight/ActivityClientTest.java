@@ -22,7 +22,7 @@ public class ActivityClientTest {
 
 	@Test
 	public void testGetActivity() {
-		Activity activity = client.activityGet("1234");
+		Activity activity = client.get("1234");
 		System.out.println(String.format("activity [%s]", activity));
 
 		assertNotNull(activity);
@@ -30,7 +30,7 @@ public class ActivityClientTest {
 
 	@Test
 	public void testGetActivityJSON() {
-		String activity = client.activityGetJSON("1234");
+		String activity = client.getJSON("1234");
 
 		System.out.println(String.format("activity JSON [%s]", activity));
 		assertNotNull(activity);
@@ -38,7 +38,7 @@ public class ActivityClientTest {
 
 	@Test
 	public void testGetActivities() {
-		List<Activity> activities = client.activitiesGet();
+		List<Activity> activities = client.get();
 
 		assertNotNull(activities);
 		assertThat("Activity count problem", activities.size(), is(2));
