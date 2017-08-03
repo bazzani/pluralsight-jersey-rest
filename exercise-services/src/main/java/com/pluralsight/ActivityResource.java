@@ -61,7 +61,7 @@ public class ActivityResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("{activityId}")
 	public Response getActivity(@PathParam("activityId") String activityId) {
-		if(activityId == null || activityId.length() < 4) {
+		if(activityId.equals("null") || activityId.length() < 4) {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		

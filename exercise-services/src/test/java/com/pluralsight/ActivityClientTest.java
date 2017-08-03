@@ -43,4 +43,19 @@ public class ActivityClientTest {
 		assertNotNull(activities);
 		assertThat("Activity count problem", activities.size(), is(2));
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testGetThrowsExceptionWithNullId() {
+		client.get(null);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testGetThrowsExceptionWithShortId() {
+		client.get("123");
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testGetThrowsExceptionWithUnknownId() {
+		client.get("8888");
+	}
 }
