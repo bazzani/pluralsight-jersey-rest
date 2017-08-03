@@ -28,7 +28,7 @@ public class ActivityClient {
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
 		}
-		
+
 		return response.readEntity(Activity.class);
 	}
 
@@ -47,11 +47,23 @@ public class ActivityClient {
 		Response response = target.path("activities/activity")
 				.request(MediaType.APPLICATION_JSON)
 				.post(Entity.entity(activity, MediaType.APPLICATION_JSON));
+
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
+		}
+
+		return response.readEntity(Activity.class);
+	}
+
+	public Activity update(Activity activity) {
+		Response response = target.path("activities/" + activity.getActivityId())
+				.request(MediaType.APPLICATION_JSON)
+				.put(Entity.entity(activity, MediaType.APPLICATION_JSON));
 		
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
 		}
-		
+
 		return response.readEntity(Activity.class);
 	}
 }

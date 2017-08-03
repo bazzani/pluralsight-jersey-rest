@@ -36,10 +36,6 @@ public class Activity {
 		this.duration = duration;
 	}
 
-	public void setId(String activityId) {
-		this.setActivityId(activityId);
-	}
-
 	@XmlAttribute
 	public String getActivityId() {
 		return activityId;

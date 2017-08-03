@@ -68,4 +68,26 @@ public class ActivityClientTest {
 		assertNotNull(activity.getActivityId());
 		assertThat("Activity duration should be increased", activity.getDuration(), is(55));
 	}
+	
+	@Test
+	public void testPutUpdate() {
+		Activity activity = new Activity("Running", 55);
+		activity.setActivityId("1357");
+		
+		activity = client.update(activity);
+		
+		assertNotNull(activity);
+		assertThat(activity.getDuration(), is(60));
+	}
+	
+	@Test
+	public void testPutCreate() {
+		Activity activity = new Activity("Walking", 20);
+		
+		activity = client.update(activity);
+		
+		assertNotNull(activity);
+		assertNotNull(activity.getActivityId());
+		assertThat(activity.getDuration(), is(20));
+	}
 }

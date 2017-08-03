@@ -31,7 +31,7 @@ public class ActivityRepositoryStub implements ActivityRepository {
 		}
 
 		Activity activity = new Activity("desc", 1);
-		activity.setId(activityId);
+		activity.setActivityId(activityId);
 
 		User user = new User();
 		user.setName("Harry Brown");
@@ -43,7 +43,23 @@ public class ActivityRepositoryStub implements ActivityRepository {
 	@Override
 	public void create(Activity activity) {
 		++instanceCount;
-		activity.setId(instanceCount.toString());
+		activity.setActivityId(instanceCount.toString());
 		System.out.println("Creating Activity: " + activity);
+	}
+
+	@Override
+	public Activity update(Activity activity) {
+		// search for activity in db
+		// - update if found
+		// - create new if not found
+		
+		String activityId = activity.getActivityId();
+		if (activityId != null && activityId.equals("1357")) {
+			activity.setDuration(activity.getDuration() + 5);
+		}
+		
+		create(activity);
+		
+		return activity;
 	}
 }
