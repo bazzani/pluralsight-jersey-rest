@@ -8,6 +8,8 @@ import com.pluralsight.model.User;
 
 public class ActivityRepositoryStub implements ActivityRepository {
 
+	private static Integer instanceCount = 0;
+
 	@Override
 	public List<Activity> findAllActivities() {
 		List<Activity> activities = new ArrayList<Activity>();
@@ -23,11 +25,11 @@ public class ActivityRepositoryStub implements ActivityRepository {
 
 	@Override
 	public Activity findActivity(String activityId) {
-		if(activityId.equals("8888")) {
-			System.out.println(String.format("Unknown activity Id [%s]",activityId));
+		if (activityId.equals("8888")) {
+			System.out.println(String.format("Unknown activity Id [%s]", activityId));
 			return null;
 		}
-		
+
 		Activity activity = new Activity("desc", 1);
 		activity.setId(activityId);
 
@@ -40,6 +42,8 @@ public class ActivityRepositoryStub implements ActivityRepository {
 
 	@Override
 	public void create(Activity activity) {
+		++instanceCount;
+		activity.setId(instanceCount.toString());
 		System.out.println("Creating Activity: " + activity);
 	}
 }

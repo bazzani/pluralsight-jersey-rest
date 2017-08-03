@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -27,6 +28,7 @@ public class ActivityClient {
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
 		}
+		
 		return response.readEntity(Activity.class);
 	}
 
@@ -39,5 +41,17 @@ public class ActivityClient {
 		List<Activity> activities = target.path("activities").request().get(new GenericType<List<Activity>>() {
 		});
 		return activities;
+	}
+
+	public Activity create(Activity activity) {
+		Response response = target.path("activities/activity")
+				.request(MediaType.APPLICATION_JSON)
+				.post(Entity.entity(activity, MediaType.APPLICATION_JSON));
+		
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
+		}
+		
+		return response.readEntity(Activity.class);
 	}
 }

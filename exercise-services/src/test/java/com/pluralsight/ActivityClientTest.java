@@ -30,7 +30,7 @@ public class ActivityClientTest {
 
 	@Test
 	public void testGetActivityJSON() {
-		String activity = client.getJSON("1234");
+		String activity = client.getJSON("5678");
 
 		System.out.println(String.format("activity JSON [%s]", activity));
 		assertNotNull(activity);
@@ -43,19 +43,29 @@ public class ActivityClientTest {
 		assertNotNull(activities);
 		assertThat("Activity count problem", activities.size(), is(2));
 	}
-	
-	@Test(expected=RuntimeException.class)
+
+	@Test(expected = RuntimeException.class)
 	public void testGetThrowsExceptionWithNullId() {
 		client.get(null);
 	}
-	
-	@Test(expected=RuntimeException.class)
+
+	@Test(expected = RuntimeException.class)
 	public void testGetThrowsExceptionWithShortId() {
 		client.get("123");
 	}
-	
-	@Test(expected=RuntimeException.class)
+
+	@Test(expected = RuntimeException.class)
 	public void testGetThrowsExceptionWithUnknownId() {
 		client.get("8888");
+	}
+
+	@Test
+	public void testPost() {
+		Activity activity = new Activity("Bikram Yoga", 45);
+		activity = client.create(activity);
+
+		assertNotNull(activity);
+		assertNotNull(activity.getActivityId());
+		assertThat("Activity duration should be increased", activity.getDuration(), is(55));
 	}
 }

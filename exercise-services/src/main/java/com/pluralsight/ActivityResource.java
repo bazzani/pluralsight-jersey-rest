@@ -30,6 +30,7 @@ public class ActivityResource {
 	public Activity createActivityBinding(Activity activity) {
 		System.out.println("POST binding: " + activity);
 		activity.setDuration(activity.getDuration() + 10);
+		activityRepository.create(activity);
 		return activity;
 	}
 
@@ -61,21 +62,21 @@ public class ActivityResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("{activityId}")
 	public Response getActivity(@PathParam("activityId") String activityId) {
-		if(activityId.equals("null") || activityId.length() < 4) {
+		if (activityId.equals("null") || activityId.length() < 4) {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
-		
+
 		Activity activity = activityRepository.findActivity(activityId);
-		
-		if(activity == null) {
+
+		if (activity == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-		
+
 		System.out.println(String.format("Getting activity with id [%s]", activityId));
-		
+
 		return Response.ok().entity(activity).build();
 	}
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("{activityId}/user")
