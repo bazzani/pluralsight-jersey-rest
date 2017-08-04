@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -24,6 +25,18 @@ public class ActivityResource {
 
 	private ActivityRepository activityRepository = new ActivityRepositoryStub();
 
+	@DELETE
+	@Path("{activityId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response delete(@PathParam("activityId") String activityId) {
+		System.out.println("DELETE: " + activityId);
+		
+		activityRepository.delete(activityId);
+		
+		return Response.ok().build();
+	}
+	
 	@PUT
 	@Path("{activityId}")
 	@Consumes(MediaType.APPLICATION_JSON)

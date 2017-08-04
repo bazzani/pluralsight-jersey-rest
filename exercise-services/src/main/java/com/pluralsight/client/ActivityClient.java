@@ -59,11 +59,21 @@ public class ActivityClient {
 		Response response = target.path("activities/" + activity.getActivityId())
 				.request(MediaType.APPLICATION_JSON)
 				.put(Entity.entity(activity, MediaType.APPLICATION_JSON));
-		
+
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
 		}
 
 		return response.readEntity(Activity.class);
+	}
+
+	public void delete(String activityId) {
+		Response response = target.path("activities/" + activityId)
+				.request()
+				.delete();
+		
+		if(response.getStatus() != Status.OK.getStatusCode()) {
+			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
+		}
 	}
 }
