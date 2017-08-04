@@ -67,4 +67,21 @@ public class ActivityRepositoryStub implements ActivityRepository {
 	public void delete(String activityId) {
 		// delete an activity from the db
 	}
+
+	@Override
+	public List<Activity> searchByParams(List<String> descriptions) {
+		//search for activities in db based on description field
+		
+		Activity activity1 = new Activity("Jogging", 35);
+		create(activity1);
+		
+		Activity activity2 = new Activity("Walking", 90);
+		create(activity2);
+		
+		List<Activity> activities = new ArrayList<Activity>();
+		activities.add(activity1);
+		activities.add(activity2);
+		
+		return activities;
+	}
 }

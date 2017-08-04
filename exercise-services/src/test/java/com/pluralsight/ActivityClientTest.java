@@ -1,23 +1,28 @@
 package com.pluralsight;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.pluralsight.client.ActivityClient;
+import com.pluralsight.client.ActivitySearchClient;
 import com.pluralsight.model.Activity;
 
 public class ActivityClientTest {
 
 	private ActivityClient client;
+	private ActivitySearchClient searchClient;
 
 	@Before
 	public void setup() {
 		client = new ActivityClient();
+		searchClient = new ActivitySearchClient(); 
 	}
 
 	@Test
@@ -96,5 +101,17 @@ public class ActivityClientTest {
 		String activityId = "1234";
 		
 		client.delete(activityId);
+	}
+	
+	@Test
+	public void testSearchWithQueryParams() {
+		List<String> searchValues = new ArrayList<String>();
+		searchValues.add("swimming");
+		searchValues.add("running");
+		
+		List<Activity> searchResult = searchClient.search("description", searchValues);
+		
+		assertNotNull(searchResult);
+		assertThat(searchResult.size(), is(2));
 	}
 }
