@@ -22,15 +22,20 @@ public class ActivitySearchResource {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
-	public Response searchForActivities(@QueryParam(value = "description") List<String> descriptions) {
+	public Response searchForActivities(@QueryParam(value = "description") List<String> descriptions,
+			@QueryParam("durationFrom") Integer durationFrom, @QueryParam("durationTo") Integer durationTo) {
+
 		System.out.println("GET-search:: descriptions: " + descriptions);
-		
-		List<Activity> activities = activityRepository.searchByParams(descriptions);
+		System.out.println("GET-search:: durationFrom: " + durationFrom);
+		System.out.println("GET-search:: durationTo: " + durationTo);
+
+		List<Activity> activities = activityRepository.searchByParams(descriptions, durationFrom, durationTo);
 
 		if (activities == null || activities.isEmpty()) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 
-		return Response.ok().entity(new GenericEntity<List<Activity>>(activities) {}).build();
+		return Response.ok().entity(new GenericEntity<List<Activity>>(activities) {
+		}).build();
 	}
 }

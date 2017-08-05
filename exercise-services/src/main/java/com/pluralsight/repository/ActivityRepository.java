@@ -15,5 +15,5 @@ public interface ActivityRepository {
 
 	void delete(String activityId);
 
-	List<Activity> searchByParams(List<String> descriptions);
+	List<Activity> searchByParams(List<String> descriptions, Integer durationFrom, Integer durationTo);
 }

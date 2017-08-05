@@ -50,16 +50,16 @@ public class ActivityRepositoryStub implements ActivityRepository {
 	@Override
 	public Activity update(Activity activity) {
 		// search for activity in db
-		// - update if found
-		// - create new if not found
-		
+		// - update activity if found
+		// - create new activity if not found
+
 		String activityId = activity.getActivityId();
 		if (activityId != null && activityId.equals("1357")) {
 			activity.setDuration(activity.getDuration() + 5);
 		}
-		
+
 		create(activity);
-		
+
 		return activity;
 	}
 
@@ -69,19 +69,20 @@ public class ActivityRepositoryStub implements ActivityRepository {
 	}
 
 	@Override
-	public List<Activity> searchByParams(List<String> descriptions) {
-		//search for activities in db based on description field
-		
+	public List<Activity> searchByParams(List<String> descriptions, Integer durationFrom, Integer durationTo) {
+		// search for activities in db based on description field
+		List<Activity> activities = new ArrayList<Activity>();
+
 		Activity activity1 = new Activity("Jogging", 35);
 		create(activity1);
-		
-		Activity activity2 = new Activity("Walking", 90);
-		create(activity2);
-		
-		List<Activity> activities = new ArrayList<Activity>();
 		activities.add(activity1);
-		activities.add(activity2);
-		
+
+		if (durationFrom == null) {
+			Activity activity2 = new Activity("Walking", 90);
+			create(activity2);
+			activities.add(activity2);
+		}
+
 		return activities;
 	}
 }

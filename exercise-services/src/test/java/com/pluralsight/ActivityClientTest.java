@@ -114,4 +114,22 @@ public class ActivityClientTest {
 		assertNotNull(searchResult);
 		assertThat(searchResult.size(), is(2));
 	}
+	
+	@Test
+	public void testSearchWithQueryParamRanges() {
+		List<String> searchValues = new ArrayList<String>();
+		searchValues.add("swimming");
+		searchValues.add("running");
+		
+		String secondParam = "durationFrom";
+		int durationFrom = 10;
+		
+		String thirdParam = "durationTo";
+		int durationTo = 50;
+		
+		List<Activity> activities = searchClient.search("description", searchValues, secondParam, durationFrom, thirdParam, durationTo);
+		
+		assertNotNull(activities);
+		assertThat(activities.size(), is(1));
+	}
 }
