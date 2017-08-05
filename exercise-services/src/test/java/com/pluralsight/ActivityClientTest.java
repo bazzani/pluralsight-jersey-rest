@@ -15,6 +15,7 @@ import com.pluralsight.client.ActivityClient;
 import com.pluralsight.client.ActivitySearchClient;
 import com.pluralsight.model.Activity;
 import com.pluralsight.model.ActivitySearch;
+import com.pluralsight.model.ActivitySearchType;
 
 public class ActivityClientTest {
 
@@ -150,6 +151,19 @@ public class ActivityClientTest {
 		ActivitySearch search = new ActivitySearch();
 		search.setDescriptions(Arrays.asList("jumping", "hopping"));
 		search.setDurationFrom(65);
+		
+		List<Activity> activities = searchClient.search(search);
+		
+		assertNotNull(activities);
+		assertThat(activities.size(), is(1));
+	}
+	
+	@Test
+	public void testSearchAndTypeWithPost() {
+		ActivitySearch search = new ActivitySearch();
+		search.setDescriptions(Arrays.asList("jumping", "hopping"));
+		search.setDurationFrom(65);
+		search.setActivitySearchType(ActivitySearchType.SEARCH_BY_DESCRIPTION);
 		
 		List<Activity> activities = searchClient.search(search);
 		

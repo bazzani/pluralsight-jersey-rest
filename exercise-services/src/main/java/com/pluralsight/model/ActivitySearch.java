@@ -6,7 +6,8 @@ public class ActivitySearch {
 	private List<String> descriptions;
 	private Integer durationFrom;
 	private Integer durationTo;
-
+	private ActivitySearchType activitySearchType;
+	
 	public List<String> getDescriptions() {
 		return descriptions;
 	}
@@ -31,9 +32,17 @@ public class ActivitySearch {
 		this.durationTo = durationTo;
 	}
 
+	public ActivitySearchType getActivitySearchType() {
+		return activitySearchType;
+	}
+
+	public void setActivitySearchType(ActivitySearchType activitySearchType) {
+		this.activitySearchType = activitySearchType;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivitySearch [descriptions=" + descriptions + ", durationFrom=" + durationFrom + ", durationTo="
-				+ durationTo + "]";
+				+ durationTo + ", activitySearchType=" + activitySearchType + "]";
 	}
 }
