@@ -2,7 +2,9 @@ package com.pluralsight;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -12,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.pluralsight.model.Activity;
+import com.pluralsight.model.ActivitySearch;
 import com.pluralsight.repository.ActivityRepository;
 import com.pluralsight.repository.ActivityRepositoryStub;
 
@@ -35,7 +38,21 @@ public class ActivitySearchResource {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 
-		return Response.ok().entity(new GenericEntity<List<Activity>>(activities) {
-		}).build();
+		return Response.ok().entity(new GenericEntity<List<Activity>>(activities) {}).build();
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
+	public Response searchForActivities(ActivitySearch search) {
+		System.out.println("POST-search:: " + search);
+
+		List<Activity> activities = activityRepository.searchByConstraints(search);
+		
+		if(activities == null || activities.isEmpty()) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+
+		return Response.ok().entity(new GenericEntity<List<Activity>>(activities) {}).build();
 	}
 }

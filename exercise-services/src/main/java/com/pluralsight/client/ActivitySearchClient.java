@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import com.pluralsight.model.Activity;
+import com.pluralsight.model.ActivitySearch;
 
 public class ActivitySearchClient {
 
@@ -58,5 +62,23 @@ public class ActivitySearchClient {
 		return activities;
 	}
 
+	public List<Activity> search(ActivitySearch search) {
+		URI uri = UriBuilder.fromUri("http://localhost:8080/exercise-services/webapi/")
+				.path("search/activities")
+				.build();
+		
+		WebTarget target = client.target(uri);
+		
+		Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.entity(search, MediaType.APPLICATION_JSON));
+		
+		if(response.getStatus() != Status.OK.getStatusCode()) {
+			throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
+		}
+		
+		List<Activity> activities = response.readEntity(new GenericType<List<Activity>>() {});
+		
+		return activities;
+	}
+	
 	// todo async().get()
 }

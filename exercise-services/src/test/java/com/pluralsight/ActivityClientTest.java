@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import com.pluralsight.client.ActivityClient;
 import com.pluralsight.client.ActivitySearchClient;
 import com.pluralsight.model.Activity;
+import com.pluralsight.model.ActivitySearch;
 
 public class ActivityClientTest {
 
@@ -128,6 +130,28 @@ public class ActivityClientTest {
 		int durationTo = 50;
 		
 		List<Activity> activities = searchClient.search("description", searchValues, secondParam, durationFrom, thirdParam, durationTo);
+		
+		assertNotNull(activities);
+		assertThat(activities.size(), is(1));
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testSearchWithPostNotFound() {
+		ActivitySearch search = new ActivitySearch();
+		search.setDescriptions(Arrays.asList("skipping", "hopping"));
+		search.setDurationFrom(30);
+		search.setDurationTo(45);
+		
+		searchClient.search(search);
+	}
+	
+	@Test
+	public void testSearchWithPost() {
+		ActivitySearch search = new ActivitySearch();
+		search.setDescriptions(Arrays.asList("jumping", "hopping"));
+		search.setDurationFrom(65);
+		
+		List<Activity> activities = searchClient.search(search);
 		
 		assertNotNull(activities);
 		assertThat(activities.size(), is(1));
