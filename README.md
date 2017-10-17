@@ -12,7 +12,7 @@ This Java EE project was created using Adam Bien's minimalist maven archetype, w
 
 # Sonar Report
 The Sonar report for this project can be found @
-* https://sonarcloud.io/dashboard?id=com.pluralsight.websockets%3Awebsockets-chat-app
+* https://sonarcloud.io/dashboard?id=com.pluralsight%3Aexercise-services
 
 Sonar maven command
 ```
