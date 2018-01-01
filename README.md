@@ -23,4 +23,8 @@ mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar \
     -DskipTests
 ```
 
-### :-1: This is a WIP and *the unit tests are being skipped* as they are failing when run via the maven command line
+:-1: This is a WIP and **the unit tests are being skipped** as they are **failing** when run via the maven command line
+
+# TODOs
+- [ ] Make unit tests pass in mvn build
+- [ ] Remove *-DskipTests* from Sonar maven command
